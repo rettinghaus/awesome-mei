@@ -1,0 +1,1512 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Stylesheet documentation for: checkDurations.xsl</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        var parametersBoxes= new Array('prs_F_durationsS_checkDurations.xsl');
+
+        
+        var usedByBoxes= new Array('uB_T_compare_durationsS_checkDurations.xsl', 
+				'uB_T_vEventsS_checkDurations.xsl', 
+				'uB_F_durationsS_checkDurations.xsl');
+
+        var docBoxes= new Array('dS_checkDurations.xsl', 
+				'dS_M_S_checkDurations.xsl', 
+				'dS_M_appchoiceM_extract_main_readingS_checkDurations.xsl', 
+				'dS_M_M_check_durationsS_checkDurations.xsl', 
+				'dS_T_compare_durationsS_checkDurations.xsl', 
+				'dS_T_vEventsS_checkDurations.xsl', 
+				'dS_M_nodeM_allS_checkDurations.xsl', 
+				'dS_F_durationsS_checkDurations.xsl');
+
+        var sourceBoxes= new Array('src_M_S_checkDurations.xsl', 
+				'src_M_appchoiceM_extract_main_readingS_checkDurations.xsl', 
+				'src_M_M_check_durationsS_checkDurations.xsl', 
+				'src_T_compare_durationsS_checkDurations.xsl', 
+				'src_T_vEventsS_checkDurations.xsl', 
+				'src_M_nodeM_allS_checkDurations.xsl', 
+				'src_F_durationsS_checkDurations.xsl', 
+				'src_O_S_checkDurations.xsl');
+
+        
+        
+        var referencesBoxes= new Array('refs_M_M_check_durationsS_checkDurations.xsl', 
+				'refs_T_compare_durationsS_checkDurations.xsl');
+
+        var importsBoxes= new Array('ip_checkDurations.xsl');
+
+        var includesBoxes= new Array('ic_checkDurations.xsl');
+
+        
+        
+        var button_prefix = 'bt_';
+        
+        /**
+        * Get all DIV elements with a specified class name.
+        *
+        * @param className The class name. 
+        */
+        function getElementsByClassName(className) {
+            var results = [];
+    
+             if (document.getElementsByClassName == undefined) {
+                var allElements = document.getElementsByTagName("div");
+                var element;
+                for (var i = 0; i < allElements.length; i++) {
+                    var element = allElements[i];
+                	var elementClass = element.className;
+                	if (elementClass == className) { 
+                		results.push(element);
+                	}
+                }
+             } else {
+                results = document.getElementsByClassName(className);
+             }
+    
+            return results;
+        }
+            
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+
+       /**
+        * Switch between the compact list representation and the clasic list representation.
+        */
+       function switchMode(checkBox) {
+            if (checkBox == null) {
+                // Checkbox not found
+            } else if (checkBox.checked == 1) {
+                // Compact mode
+                var divs = getElementsByClassName('refItemBlock');
+                for (var i = 0; i < divs.length; i ++) {
+                    divs[i].style.display = "inline";
+                    var children = divs[i].children;
+                    var refItemSep = children[children.length - 1];
+                    if (refItemSep.className == "refItemSep") {
+                        children[children.length - 1].style.display = "inline";
+                    }
+                }
+            } else {
+                // Expanded mode
+                var divs = getElementsByClassName('refItemBlock');
+                for (var i = 0; i < divs.length; i ++) {
+                    divs[i].style.display = "block";
+                    var children = divs[i].children;
+                    var refItemSep = children[children.length - 1];
+                    if (refItemSep.className == "refItemSep") {
+                        children[children.length - 1].style.display = "none";
+                    }
+                }
+            }
+        }
+
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updPT(message) {
+            top.document.title = "Stylesheet documentation for: " + message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+         var selectIds = new Array('toc_group_by_location', 'toc_group_by_component_type', 'toc_group_by_namespace', 'toc_group_by_mode');
+            // Make all the tabs invisible.
+            for (i = 0; i < 4; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    
+                    //--></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cTL"></td>
+               <td class="rt_lT"></td>
+               <td class="rt_cTR"></td>
+            </tr>
+            <tr>
+               <td class="rt_lL"></td>
+               <td class="rt_cnt">
+                  <h3>Mode:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchMode(this);" class="control" /></span><span class="globalControlName">Compact lists</span></td>
+                     </tr>
+                  </table>
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, docBoxes);" class="control" /></span><span class="globalControlName">Documentation
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, parametersBoxes);" class="control" /></span><span class="globalControlName">Parameters </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, referencesBoxes);" class="control" /></span><span class="globalControlName">References </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, importsBoxes);" class="control" /></span><span class="globalControlName">Imported modules
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, includesBoxes);" class="control" /></span><span class="globalControlName">Included modules
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control" /></span><span class="globalControlName">Source </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close" /></span></div>
+               </td>
+               <td class="rt_lR"></td>
+            </tr>
+            <tr>
+               <td class="rt_cBL"></td>
+               <td class="rt_lB"></td>
+               <td class="rt_cBR"></td>
+            </tr>
+         </table>
+      </div><a id="checkDurations.xsl"></a><div class="cmpT">Main stylesheet
+         <span class="qname">checkDurations.xsl</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 
+                                 <p>
+                                    <i>Checks if the sum of the durations of the elements which have @dur attribute in a
+                                       &lt;layer&gt; is equal to the expected metrum.</i>
+                                    
+                                 </p>
+                                 
+                                 <p>The stylesheet outputs the file <i>&lt;fileName&gt;_wrong_durations.txt</i> which contains a list of the &lt;layer&gt;/@xml:ids where the durations are possibly wrong.
+                                 </p>
+                                 
+                                 <p>Following &lt;layer&gt;s are not considered:
+                                    <ul>
+                                       
+                                       <li class="doc">Descendants of uncomplete measures (@metcon='false')</li>
+                                       
+                                       <li class="doc">&lt;layer&gt;s which have &lt;mRest&gt;, &lt;multiRest&gt;, &lt;mSpace&gt; as descendants</li>
+                                       
+                                       <li class="doc">&lt;layer&gt;[@sameas]</li>
+                                       
+                                       <li class="doc">If a &lt;layer&gt; contains &lt;app&gt; or &lt;choice&gt;, only the descendants of its first child are
+                                          considered for the check
+                                       </li>
+                                       
+                                    </ul>
+                                    
+                                 </p>
+                                 <pre> </pre>
+                                 <p><b>Current version</b>: <b>1.1.1</b>. For the details see the changeLog.
+                                 </p>
+                                 
+                                 <p><b>Author</b>: Oleksii Sapov. <b>Disclaimer</b>: The stylesheet uses some logic and code parts form <i>addTstamps.xsl</i> which was created by Johannes Kepper on May 22, 2016.<pre></pre>
+                                    <b>Copyright</b>: 2021-2022 Internationale Stiftung Mozarteum Salzburg.<pre></pre>Licensed under the Educational Community License, Version 2.0 (the "License"); you
+                                    may not use this file except in compliance with the License. You may obtain a copy
+                                    of the License at <a href="https://opensource.org/licenses/ECL-2.0" target="_blank">https://opensource.org/licenses/ECL-2.0</a><pre></pre>Unless required by applicable law or agreed to in writing, software distributed under
+                                    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+                                    ANY KIND, either express or implied. See the License for the specific language governing
+                                    permissions and limitations under the License.</p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Imported modules</div>
+                           <div class="flR"><input id="bt_ip_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('ip_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="ip_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations1.html#changeLog.xsl" target="_self" title="No namespace" onclick="updPT('changeLog.xsl')">changeLog.xsl</a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Included modules</div>
+                           <div class="flR"><input id="bt_ic_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('ic_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="ic_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations2.html#....transformationlibfunctionsfunctx-1.0-doc-2007-01.xsl" target="_self" title="No namespace" onclick="updPT('../../transformation/lib/functions/functx-1.0-doc-2007-01.xsl')">../../transformation/lib/functions/functx-1.0-doc-2007-01.xsl</a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet version</td>
+                        <td>3.0</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Extension functions reliance</div>
+                        </td>
+                        <td>
+                           <div>
+                              <table class="attsT">
+                                 <th class="fCol">
+                                    <div class="flL">Namespace</div>
+                                 </th>
+                                 <th class="fCol">
+                                    <div class="flL">Functions</div>
+                                 </th>
+                                 <tr>
+                                    <td class="fCol">http://www.w3.org/2005/xpath-functions/math</td>
+                                    <td><span title="Arity: 2 Used in: checkDurations.xsl&#xA;">pow</span></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_S_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">/</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_S_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_M_S_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_S_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>The input document is processed in two modes subsequently: 
+                                 <ul>
+                                    
+                                    <li class="doc"><i>extract_main_reading</i>: extracts all nodes from the first child of an &lt;app&gt; or &lt;choice&gt;.
+                                    </li>
+                                    
+                                    <li class="doc"><i>check_durations</i>: performs the calculations
+                                    </li>
+                                    
+                                 </ul>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>/</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_S_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_M_S_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_S_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> match=</span><span class="tAV">"/"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"break"</span><span class="tAN"> select=</span><span class="tAV">"'
+'"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"extract_main_reading"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> mode=</span><span class="tAV">"extract_main_reading"</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:string*"</span><span class="tAN"> name=</span><span class="tAV">"check_durations"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> mode=</span><span class="tAV">"check_durations"</span><span class="tAN"> select=</span><span class="tAV">"$extract_main_reading"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"empty($check_durations)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;message</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">No errors found!</span><span class="tXSLEl">&lt;/message&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!--Values for output text-file --&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;copy-of</span><span class="tAN"> select=</span><span class="tAV">"             let $values := for $n in $check_durations             return               (if (not(empty($n))) then                 $n               else                 ())             return               string-join($values, $break)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:string*"</span><span class="tAN"> name=</span><span class="tAV">"metcon.measures"</span><span class="tAN"> select=</span><span class="tAV">"//measure[@metcon = 'false']/@xml:id/string()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:string*"</span><span class="tAN"> name=</span><span class="tAV">"app.choice.layers"</span><span class="tAN"> select=</span><span class="tAV">"//layer[descendant::app or descendant::choice]/@xml:id/string()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"not(empty($metcon.measures)) or not(empty($app.choice.layers))"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;message</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Additionaly, you may check following code parts mannually:</span><span class="tXSLEl">&lt;/message&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"not(empty($metcon.measures))"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;message</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"$break"</span><span class="tXSLEl">/&gt;</span><span class="tT" style="white-space:normal">Measures with @metcon="false":</span><span class="tI">
+      </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"metcon.measures"</span><span class="tAN"> select=</span><span class="tAV">"//measure[@metcon = 'false']/@xml:id/string()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"             'id((''' ||             string-join($metcon.measures, ''', ''') || '''))'"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/message&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"not(empty($app.choice.layers))"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;message</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Layers, containig app or choice (by default only the first child is checked):</span><span class="tI">
+      </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"             'id((''' ||             string-join($app.choice.layers, ''', ''') || '''))'"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/message&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_appchoiceM_extract_main_readingS_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">app | choice</span><span class="titleTemplateMode">extract_main_reading</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_appchoiceM_extract_main_readingS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_M_appchoiceM_extract_main_readingS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_appchoiceM_extract_main_readingS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>Extracts all nodes from the first child of an &lt;app&gt; or &lt;choice&gt;.
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>app | choice</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>extract_main_reading</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_appchoiceM_extract_main_readingS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_M_appchoiceM_extract_main_readingS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_appchoiceM_extract_main_readingS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> match=</span><span class="tAV">"app | choice"</span><span class="tAN"> mode=</span><span class="tAV">"extract_main_reading"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> select=</span><span class="tAV">"child::*[1]/child::*"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_M_check_durationsS_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">/</span><span class="titleTemplateMode">check_durations</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_M_check_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_M_M_check_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_M_check_durationsS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 
+                                 <p>Checks if the sum of the durations of the elements which have a @dur attributed in
+                                    a &lt;layer&gt; is equal to the expected metrum.
+                                 </p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>/</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>check_durations</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_M_check_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('refs_M_M_check_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_M_check_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations0.html#T_compare_durationsS_checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')"><span class="nRf">compare_durations</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_M_check_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_M_M_check_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_M_check_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> match=</span><span class="tAV">"/"</span><span class="tAN"> mode=</span><span class="tAV">"check_durations"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--For debugging--&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--    &lt;variable as="xs:string*" name="output"&gt;--&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- Applies the template compare_durations for every &amp;lt;layer&amp;gt; which match the constraints.--&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;for-each</span><span class="tAN"> select=</span><span class="tAV">"//layer[not(@sameas) and not(ancestor::measure[@metcon = 'false']) and not(descendant::mRest | descendant::multiRest | descendant::app | descendant::mSpace | descendant::choice)]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:string*"</span><span class="tAN"> name=</span><span class="tAV">"current_layer_wrong"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;call-template</span><span class="tAN"> name=</span><span class="tAV">"compare_durations"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"not(empty($current_layer_wrong))"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;call-template</span><span class="tAN"> name=</span><span class="tAV">"compare_durations"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/for-each&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--&lt;/variable&gt;--&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--    &lt;copy-of select="$output"/&gt;--&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="T_compare_durationsS_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">layer</span><span class="titleTemplateName">compare_durations</span><span class="titleTemplateMode">check_durations</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_T_compare_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_T_compare_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_T_compare_durationsS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>Durations of the elements with @dur are calculated and compared to the expected metrum
+                                 count.
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>layer</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>check_durations</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_T_compare_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('uB_T_compare_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_T_compare_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations0.html#M_M_check_durationsS_checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')"><span class="mRf">/</span><span class="mdRf">check_durations</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_T_compare_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('refs_T_compare_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_T_compare_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations0.html#T_vEventsS_checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')"><span class="nRf">vEvents</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="fCol">Functions</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations2.html#F_charsS_....transformationlibfunctionsfunctx-1.0-doc-2007-01.xsl" target="_self" title="http://www.functx.com" onclick="updPT('../../transformation/lib/functions/functx-1.0-doc-2007-01.xsl')"><span>chars (</span><span class="fParams">arg</span><span>)</span></a><span class="refItemSep">;</span></div>
+                                          <div class="refItemBlock"><a href="checkDurations0.html#F_durationsS_checkDurations.xsl" target="_self" title="http://www.mozarteum.at/ns/dme" onclick="updPT('checkDurations.xsl')"><span>durations (</span><span class="fParams">layer, events, meter.count, meter.unit</span><span>)</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_T_compare_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_T_compare_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_T_compare_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> match=</span><span class="tAV">"layer"</span><span class="tAN"> mode=</span><span class="tAV">"check_durations"</span><span class="tAN"> name=</span><span class="tAV">"compare_durations"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"last_scoredef"</span><span class="tAN"> select=</span><span class="tAV">"(preceding::scoreDef[@meter.count])[last()]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:integer"</span><span class="tAN"> name=</span><span class="tAV">"meter.count"</span><span class="tAN"> select=</span><span class="tAV">"$last_scoredef/@meter.count cast as xs:integer"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:integer"</span><span class="tAN"> name=</span><span class="tAV">"meter.unit"</span><span class="tAN"> select=</span><span class="tAV">"$last_scoredef/@meter.unit cast as xs:integer"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--Contains all descendants with @dur except $events.dur.exceptions--&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"element()*"</span><span class="tAN"> name=</span><span class="tAV">"events"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;call-template</span><span class="tAN"> name=</span><span class="tAV">"vEvents"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--This should be the value when we sum up all (preprocessed) durations. 1 is always a whole measure so it could be the maximum expected correct value.--&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal"</span><span class="tAN"> name=</span><span class="tAV">"expected_count"</span><span class="tAN"> select=</span><span class="tAV">"(1 div $meter.unit) * $meter.count"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--Here we calculate the sum of the durations in the current layer--&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"current_count"</span><span class="tAN"> select=</span><span class="tAV">"         let $durations_sequence :=         dme:durations(., $events, $meter.count, $meter.unit)         return           sum($durations_sequence)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$current_count = $expected_count"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!--As stated above, '1' is the maximum value.--&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$current_count &gt; $expected_count"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"@xml:id"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$current_count &lt; $expected_count"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!--There is a possiblity, that the layer contains tuplets. In this case the sum of the durations will be a very little less then the expected result. e. g. for the expected_count '0.75' it would be '0.74999999....'. To catch up these cases, we would perform 0.749 + 0.001 and test again if the expected and actual results match. --&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!--Count of the after-comma-places in the $expected_count--&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:integer"</span><span class="tAN"> name=</span><span class="tAV">"expected_count_after_comma_numbers_count"</span><span class="tAN"> select=</span><span class="tAV">"             let $substring_after := string($expected_count) =&gt; substring-after('.')             return               functx:chars($substring_after) =&gt; count()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal"</span><span class="tAN"> name=</span><span class="tAV">"current_count_with_tuplet_factor"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--  Get the number by which we will shift the comma. --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:integer"</span><span class="tAN"> name=</span><span class="tAV">"shift"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tC">&lt;!--The case, when expected_count is '1' is special and is hard typed with shift of two places. --&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$expected_count = 1"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"100"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+            </span><span class="tC">&lt;!-- E. g. when the expected_count is '0.75', the value will be 2+1=3. We need add 1, as the $current_count might be '0.74999999' and we need to get to '0.749' --&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"math:pow(10, $expected_count_after_comma_numbers_count + 1) cast as xs:integer"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!-- In order to get from '0.74999999' to '0.749' we shift first the comma to the left =&gt;  '749.99999' then perform floor() =&gt; '749(.000)' then shift back to the right =&gt; '0.749'. Finally, a value of '0.001' is added. And in this example we would get '0.75' which would match $expected_count--&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"(floor($current_count * $shift) div $shift) + (1 div $shift)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"not($current_count_with_tuplet_factor = $expected_count)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"@xml:id"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="T_vEventsS_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateName">vEvents</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_T_vEventsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_T_vEventsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_T_vEventsS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 
+                                 <p>Returns a sequence of the elements which fulfil the following constraints:
+                                    <ul>
+                                       
+                                       <li class="doc">have @dur</li>
+                                       
+                                       <li class="doc">are not descendant of &lt;chord&gt;</li>
+                                       
+                                       <li class="doc">do not belong to the $events.dur.exceptions</li>
+                                       
+                                    </ul>
+                                    
+                                 </p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_T_vEventsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('uB_T_vEventsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_T_vEventsS_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations0.html#T_compare_durationsS_checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')"><span class="nRf">compare_durations</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_T_vEventsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_T_vEventsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_T_vEventsS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> name=</span><span class="tAV">"vEvents"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> name=</span><span class="tAV">"events.dur.exceptions"</span><span class="tAN"> select=</span><span class="tAV">"'beatRpt', 'halfmRpt'"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;for-each</span><span class="tAN"> select=</span><span class="tAV">".//*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!--I the current element has @sameas, @dur and @dots are copied from the referenced element--&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"@sameas and not(@dur)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"element()"</span><span class="tAN"> name=</span><span class="tAV">"reference"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"substring-after(@sameas, '#') =&gt; id()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"$reference[(not(ancestor::chord) and not(@grace) and not(ancestor::graceGrp)) or (local-name() = $events.dur.exceptions)]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$reference[@dur and @dots]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;copy</span><span class="tXSLEl">&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;attribute</span><span class="tAN"> name=</span><span class="tAV">"dur"</span><span class="tAN"> select=</span><span class="tAV">"$reference/@dur"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;attribute</span><span class="tAN"> name=</span><span class="tAV">"dots"</span><span class="tAN"> select=</span><span class="tAV">"$reference/@dots"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> select=</span><span class="tAV">"@*, node()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;/copy&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$reference[@dur]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;copy</span><span class="tXSLEl">&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;attribute</span><span class="tAN"> name=</span><span class="tAV">"dur"</span><span class="tAN"> select=</span><span class="tAV">"$reference/@dur"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> select=</span><span class="tAV">"@*, node()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;/copy&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"$reference//*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;for-each</span><span class="tAN"> select=</span><span class="tAV">"$reference//*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"(@dur and not(ancestor::chord) and not(@grace) and not(ancestor::graceGrp)) or (local-name() = $events.dur.exceptions)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/for-each&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"@copyof"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"element()"</span><span class="tAN"> name=</span><span class="tAV">"reference"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"substring-after(@copyof, '#') =&gt; id()"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"$reference[(@dur and not(ancestor::chord) and not(@grace) and not(ancestor::graceGrp)) or (local-name() = $events.dur.exceptions)]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"$reference"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--In case if the reference is e.g. beam which does not contain @dur but its children may--&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"$reference//*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;for-each</span><span class="tAN"> select=</span><span class="tAV">"$reference//*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"(@dur and not(ancestor::chord) and not(@grace) and not(ancestor::graceGrp)) or (local-name() = $events.dur.exceptions)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/for-each&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;if</span><span class="tAN"> test=</span><span class="tAV">"(@dur and not(ancestor::chord) and not(@grace) and not(ancestor::graceGrp)) or (local-name() = $events.dur.exceptions)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;sequence</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/if&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/for-each&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_nodeM_allS_checkDurations.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">node() | @*</span><span class="titleTemplateMode">#all</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_nodeM_allS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_M_nodeM_allS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_nodeM_allS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>Identity transform.
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>node() | @*</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#all</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_nodeM_allS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_M_nodeM_allS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_nodeM_allS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;template</span><span class="tAN"> match=</span><span class="tAV">"node() | @*"</span><span class="tAN"> mode=</span><span class="tAV">"#all"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;copy</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;apply-templates</span><span class="tAN"> mode=</span><span class="tAV">"#current"</span><span class="tAN"> select=</span><span class="tAV">"node() | @*"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/copy&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="F_durationsS_checkDurations.xsl"></a><div class="cmpT">Function
+         <span class="qname">dme:durations (<span class="fParams">layer, events, meter.count, meter.unit</span>)</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_F_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('dS_F_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_F_durationsS_checkDurations.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>Returen sequence whith elements durations in the respect to the system where <i>1</i> is a whole measure.
+                                 <table>
+                                    <tr>
+                                       <h4>Parameters</h4>
+                                       <td class="paramName"><b>layer</b></td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td class="paramName"><b>events</b></td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td class="paramName"><b>meter.count</b></td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td class="paramName"><b>meter.unit</b></td>
+                                       <td></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>http://www.mozarteum.at/ns/dme</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Type</td>
+                        <td>xs:decimal*</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_F_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('uB_F_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_F_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="checkDurations0.html#T_compare_durationsS_checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')"><span class="nRf">compare_durations</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Parameters</div>
+                           <div class="flR"><input id="bt_prs_F_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('prs_F_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="prs_F_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="attsT">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th>Namespace</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="fCol">events</td>
+                                    <td>No namespace</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="fCol">layer</td>
+                                    <td>No namespace</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="fCol">meter.count</td>
+                                    <td>No namespace</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="fCol">meter.unit</td>
+                                    <td>No namespace</td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>1</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_F_durationsS_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_F_durationsS_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_F_durationsS_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;function</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal*"</span><span class="tAN"> name=</span><span class="tAV">"dme:durations"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;param</span><span class="tAN"> name=</span><span class="tAV">"layer"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;param</span><span class="tAN"> name=</span><span class="tAV">"events"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;param</span><span class="tAN"> name=</span><span class="tAV">"meter.count"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;param</span><span class="tAN"> name=</span><span class="tAV">"meter.unit"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;for-each</span><span class="tAN"> select=</span><span class="tAV">"$events"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"attribute()"</span><span class="tAN"> name=</span><span class="tAV">"dur_attr"</span><span class="tAN"> select=</span><span class="tAV">"@dur"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal"</span><span class="tAN"> name=</span><span class="tAV">"dur"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$dur_attr"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"1 div number($dur_attr)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"local-name() = 'beatRpt'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"1 div $meter.unit"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"local-name() = 'halfmRpt'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"($meter.count div 2) div $meter.unit"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal"</span><span class="tAN"> name=</span><span class="tAV">"tupletFactor"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"@sameas"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tC">&lt;!--The problem with @sameas elements is: after you added @dur (and @dots) in the $vEvents you cannot access the ancesotors. So here we get the 'original' element from the current layer and we are able to check if it is part of a tuplet. --&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"element()?"</span><span class="tAN"> name=</span><span class="tAV">"orig.element.tuplet"</span><span class="tAN"> select=</span><span class="tAV">"($layer/id(current()/@xml:id)/ancestor::tuplet)[1]"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$orig.element.tuplet"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"$orig.element.tuplet/number(@numbase) div $orig.element.tuplet/number(@num)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"1"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"ancestor::tuplet"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"(ancestor::tuplet)[1]/number(@numbase) div (ancestor::tuplet)[1]/number(@num)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"1"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:decimal"</span><span class="tAN"> name=</span><span class="tAV">"dots"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;variable</span><span class="tAN"> as=</span><span class="tAV">"xs:integer?"</span><span class="tAN"> name=</span><span class="tAV">"dots_attr"</span><span class="tAN"> select=</span><span class="tAV">"xs:integer(@dots)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;when</span><span class="tAN"> test=</span><span class="tAV">"$dots_attr"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"$dots_attr"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"0"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/otherwise&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/choose&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/variable&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;value-of</span><span class="tAN"> select=</span><span class="tAV">"(2 * $dur - ($dur div math:pow(2, $dots))) * $tupletFactor"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/for-each&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/function&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="O_S_checkDurations.xsl"></a><div class="cmpT">Output
+         <span class="qname">(default)</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Output properties</div>
+                           <div class="flR"><input id="bt_o_" type="image" src="img/btM.gif" value="-" onclick="switchState('o_');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="o_" style="display:block">
+                              <table class="attsT">
+                                 <thead>
+                                    <tr>
+                                       <th>method</th>
+                                       <th>indent</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td>text</td>
+                                    <td>yes</td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_O_S_checkDurations.xsl" type="image" src="img/btM.gif" value="-" onclick="switchState('src_O_S_checkDurations.xsl');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_O_S_checkDurations.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;output</span><span class="tAN"> indent=</span><span class="tAV">"yes"</span><span class="tAN"> method=</span><span class="tAV">"text"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="checkDurations0.html#checkDurations.xsl" target="_self" title="No namespace" onclick="updPT('checkDurations.xsl')">checkDurations.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">Stylesheet documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--
+                    // The namespace is the selected option in the TOC combo.
+                    
+                    // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                            // It can be null when having chunking, the combo of the TOC is in another frame.
+                            selectToc.selectedIndex = 0;
+                            }
+                        
+                    
+                    // Floats the toolbar.
+                    var globalControls = getElementObject("global_controls"); 
+                    
+                    if(globalControls != null){
+                    var browser=navigator.appName;
+                    var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+                    
+                    var IE6 = false;
+                    if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+                    IE6 = true;
+                    }
+                    
+                    //alert (IE6 + " |V| " + version);
+                    
+                    if(IE6){
+                    // On IE 6 the 'fixed' property is not supported. We must use javascript. 
+                    globalControls.style.position='absolute';                         
+                    // The global controls will do not exist in the TOC frame, when chunking.
+                    findAndFloat("global_controls", 225, 30);    
+                    } else {
+                    globalControls.style.position='fixed';                     	
+                    }
+                    
+                    globalControls.style.right='0';                       
+                    }
+                //--></script></body>
+</html>
