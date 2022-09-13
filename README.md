@@ -9,6 +9,7 @@ A curated list of awesome software and resources around MEI
 
 ### Tools
 
+* [DIME-tools](https://github.com/ism-dme/DIME-tools) – A useful toolbox for transforming and validating MEI files
 * [Meico](https://github.com/cemfi/meico) – A converter framework for MEI files
 * [MEIGarage](https://github.com/Edirom/MEIGarage) – webservice and RESTful service to transform, convert and validate various formats, focussing on the MEI format
 * [MerMEId](https://github.com/Edirom/MerMEId) – Metadata Editor and Repository for MEI Data
