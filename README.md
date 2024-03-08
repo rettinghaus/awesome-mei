@@ -15,6 +15,7 @@ A curated list of awesome software and resources around MEI
 * [MerMEId](https://github.com/Edirom/MerMEId) – Metadata Editor and Repository for MEI Data
 * [mei-friend](https://github.com/Signature-Sound-Vienna/mei-friend-online) – The mei-friend Web Application: Editing MEI in the Browser
   * [mei-friend package for Atom](https://github.com/trompamusic/mei-friend) – This package is an Atom version of the mei-friend web application
+* [MEI2PAE](https://github.com/rettinghaus/mei2pae) – Little XSLT to extract short incipits from MEI files encoded with Plaine and Easie Code.
 
 ### Schema
 
