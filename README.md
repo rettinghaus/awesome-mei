@@ -6,6 +6,7 @@ A curated list of awesome software and resources around MEI
 
 * [MEILER](https://github.com/rettinghaus/MEILER) – MEI Lilypond Engraving Refinement
 * [Verovio](https://github.com/rism-digital/verovio) – Music notation engraving library for MEI
+* [MuseScore Studio](https://github.com/musescore/MuseScore) – Music notation software with MEI import and export
 
 ### Tools
 
